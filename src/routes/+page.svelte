@@ -45,43 +45,41 @@
 	let search: string;
 </script>
 
-<div class="h-screen w-full text-sm overflow-y-hidden bg-neutral-900 font-mono">
-	<div class="max-w-2xl mx-auto flex flex-col w-full h-full">
-		<div class="flex p-2 flex-col md:flex-row gap-2 md:gap-0">
-			<textarea
-				placeholder="Describe your habit..."
-				rows="2"
-				bind:value={name}
-				class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
-			></textarea>
-			<input
-				class="p-2 w-full md:w-fit rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
-				type="time"
-				bind:value={date}
-			/>
-			<button
-				disabled={!Boolean(name) || !Boolean(name.replaceAll(' ', ''))}
-				on:click={addHabit}
-				class="p-2 rounded-l-md md:rounded-l-none bg-blue-500 rounded-r-md">Add habit</button
-			>
-		</div>
+<div class="max-w-2xl mx-auto flex flex-col w-full h-full gap-4 p-2">
+	<div class="flex flex-col md:flex-row gap-2 md:gap-0">
+		<textarea
+			placeholder="Describe your habit..."
+			rows="2"
+			bind:value={name}
+			class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
+		></textarea>
+		<input
+			class="p-2 w-full md:w-fit rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
+			type="time"
+			bind:value={date}
+		/>
+		<button
+			disabled={!Boolean(name) || !Boolean(name.replaceAll(' ', ''))}
+			on:click={addHabit}
+			class="p-2 rounded-l-md md:rounded-l-none bg-blue-500 rounded-r-md">Add habit</button
+		>
+	</div>
 
-		<div class="flex mt-4 justify-between gap-2 p-2">
-			<input
-				bind:value={search}
-				placeholder="search habit"
-				type="text"
-				class="p-2 border-none flex-1 outline-none text-white placeholder:text-neutral-900 bg-neutral-700 rounded-md"
-			/>
-		</div>
-		<div class="p-2 w-full flex flex-col gap-4 overflow-y-scroll">
-			{#each $habits as habit, habit_index}
-				{#if !Boolean(search)}
-					<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
-				{:else if habit.name.toLowerCase().includes(search.toLowerCase())}
-					<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
-				{/if}
-			{/each}
-		</div>
+	<div class="sticky top-0 flex justify-between gap-2">
+		<input
+			bind:value={search}
+			placeholder="search habit"
+			type="text"
+			class="p-2 border-none flex-1 outline-none text-white placeholder:text-neutral-900 bg-neutral-700 rounded-md"
+		/>
+	</div>
+	<div class="w-full flex flex-col gap-4">
+		{#each $habits as habit, habit_index}
+			{#if !Boolean(search)}
+				<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
+			{:else if habit.name.toLowerCase().includes(search.toLowerCase())}
+				<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
+			{/if}
+		{/each}
 	</div>
 </div>
