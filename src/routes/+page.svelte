@@ -77,7 +77,7 @@
 			{#each $habits as habit, habit_index}
 				{#if !Boolean(search)}
 					<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
-				{:else if habit.name.toLowerCase().includes(search)}
+				{:else if habit.name.toLowerCase().includes(search.toLowerCase())}
 					<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
 				{/if}
 			{/each}
