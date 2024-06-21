@@ -48,11 +48,12 @@
 <div class="h-screen w-full text-sm overflow-y-hidden bg-neutral-900 font-mono">
 	<div class="max-w-2xl mx-auto flex flex-col w-full h-full">
 		<div class="flex p-2 flex-col md:flex-row gap-2 md:gap-0">
-			<input
+			<textarea
 				placeholder="Describe your habit..."
+				rows="2"
 				bind:value={name}
 				class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
-			/>
+			></textarea>
 			<input
 				class="p-2 w-full md:w-fit rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
 				type="time"
