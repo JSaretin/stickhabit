@@ -51,17 +51,17 @@
 			<input
 				placeholder="Describe your habit..."
 				bind:value={name}
-				class="flex-1 bg-neutral-800 text-white rounded-l-md p-2 resize-none border-none outline-none"
+				class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
 			/>
 			<input
-				class="p-1 bg-neutral-800 text-neutral-100 border-none outline-none"
+				class="p-1 rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
 				type="time"
 				bind:value={date}
 			/>
 			<button
 				disabled={!Boolean(name) || !Boolean(name.replaceAll(' ', ''))}
 				on:click={addHabit}
-				class="p-2 bg-blue-500 rounded-r-md">Add habit</button
+				class="p-2 rounded-l-md md:rounded-l-none bg-blue-500 rounded-r-md">Add habit</button
 			>
 		</div>
 
