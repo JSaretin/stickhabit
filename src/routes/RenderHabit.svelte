@@ -5,6 +5,18 @@
 	import HabitTicker from './HabitTicker.svelte';
 
 	export let habit: Habit;
+	let choosenIndex: number;
+
+	function updateChoosenIndex() {
+		const todayStart = getStartOfToday();
+		const diff = todayStart - habit.start_date;
+
+		choosenIndex = Math.floor(diff / 86400000);
+	}
+	onMount(() => {
+		updateChoosenIndex();
+		setInterval(updateChoosenIndex, 1000);
+	});
 	let expand: boolean = true;
 </script>
 
@@ -18,7 +30,15 @@
 	{#if expand}
 		<div class="flex gap-1 flex-wrap p-4 pt-0">
 			{#each Array(365).fill(null) as _, index}
-				<HabitTicker bind:habit {index} on:update />
+				{#if index == choosenIndex}
+					<HabitTicker bind:habit {index} on:update />
+				{:else}
+					<button
+						title={new Date(habit.start_date + 86400000 * index).toString()}
+						class="w-3 aspect-square rounded-sm bg-neutral-800"
+						disabled
+					></button>
+				{/if}
 			{/each}
 		</div>
 	{/if}
