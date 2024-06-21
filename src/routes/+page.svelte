@@ -54,7 +54,7 @@
 				class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
 			/>
 			<input
-				class="p-1 rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
+				class="p-2 w-full md:w-fit rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
 				type="time"
 				bind:value={date}
 			/>
