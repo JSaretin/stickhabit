@@ -47,7 +47,7 @@
 
 <div class="h-screen w-full text-sm overflow-y-hidden bg-neutral-900 font-mono">
 	<div class="max-w-2xl mx-auto flex flex-col w-full h-full">
-		<div class="flex p-2">
+		<div class="flex p-2 flex-col md:flex-row">
 			<input
 				placeholder="Describe your habit..."
 				bind:value={name}
