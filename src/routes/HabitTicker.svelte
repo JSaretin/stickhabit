@@ -38,7 +38,7 @@
 
 <button
 	title={new Date(execttime).toString()}
-	class={'w-6 md:w-3 aspect-square rounded-sm ' +
+	class={'w-3 aspect-square rounded-sm ' +
 		(habit.completed[index] !== undefined
 			? 'bg-green-400'
 			: isToday
