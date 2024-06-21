@@ -1,19 +1,24 @@
 <script lang="ts">
-	import { convertToMilliseconds, getCurrentTime } from '$lib';
+	import { calculateMilliSecondes, getCurrentTime, getIsToday } from '$lib';
 	import type { Habit } from '$lib/structure';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	export let index: number;
 	export let habit: Habit;
-	export let execttime: number;
-	export let today: number;
+
+	let execttime: number;
+	let isToday: boolean;
+
+	const days = calculateMilliSecondes(habit, index);
 
 	const emiter = createEventDispatcher();
 	let disabled: boolean;
 
 	function setIsDisabled() {
+		isToday = getIsToday(execttime);
+
 		const now = getCurrentTime();
-		disabled = now < execttime;
+		disabled = !isToday || now < execttime;
 	}
 
 	function processDone() {
@@ -25,6 +30,7 @@
 	}
 
 	onMount(() => {
+		execttime = days + habit.start_date;
 		setIsDisabled();
 		setInterval(setIsDisabled, 1000);
 	});
@@ -32,10 +38,10 @@
 
 <button
 	title={new Date(execttime).toString()}
-	class={'w-3 aspect-square rounded-sm ' +
+	class={'w-6 md:w-3 aspect-square rounded-sm ' +
 		(habit.completed[index] !== undefined
 			? 'bg-green-400'
-			: execttime - convertToMilliseconds(habit.start_time) == today
+			: isToday
 				? 'border border-orange-400'
 				: 'bg-neutral-800')}
 	{disabled}

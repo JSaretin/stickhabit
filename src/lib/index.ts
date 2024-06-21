@@ -38,11 +38,20 @@ export function getStartOfToday() {
 }
 
 export function calculateMilliSecondes(habit: Habit, index: number): number {
-    const startOfToday = getStartOfToday();
-    const startTimeInMilliseconds = convertToMilliseconds(convertTo24Hour(habit.start_time));
-    return startOfToday + startTimeInMilliseconds + (index * 86400000);
+    const startTimeInMilliseconds = convertToMilliseconds(habit.start_time);
+    return startTimeInMilliseconds + (index * 86400000);
 }
 
 export function getCurrentTime() {
     return new Date().getTime();
+}
+
+export function getIsToday(execttime: number): boolean {
+    const date = new Date(execttime);
+    const today = new Date();
+    return (
+        today.getFullYear() === date.getFullYear() &&
+        today.getMonth() === date.getMonth() &&
+        today.getDate() === date.getDate()
+    );
 }
