@@ -1,5 +1,7 @@
 import type { Habit } from "./structure";
 
+export const millisecondsInAday = 86400000
+
 export function convertTo24Hour(time: string): string {
     const [timePart, modifier] = time.split(' ');
     let [hours, minutes] = timePart.split(':');
@@ -39,7 +41,7 @@ export function getStartOfToday() {
 
 export function calculateMilliSecondes(habit: Habit, index: number): number {
     const startTimeInMilliseconds = convertToMilliseconds(habit.start_time);
-    return startTimeInMilliseconds + (index * 86400000);
+    return startTimeInMilliseconds + (index * millisecondsInAday);
 }
 
 export function getCurrentTime() {

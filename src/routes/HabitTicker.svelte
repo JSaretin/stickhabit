@@ -1,13 +1,20 @@
 <script lang="ts">
+	import { convertToMilliseconds, millisecondsInAday } from '$lib';
+
 	export let index: number;
-	export let completed: boolean;
+	export let completed: { [key: string]: boolean };
 	export let choosenIndex: number;
+	export let start_date: number;
+	export let start_time: string;
 </script>
 
 <button
+	title={new Date(
+		start_date + millisecondsInAday * index + convertToMilliseconds(start_time)
+	).toString()}
 	disabled={index !== choosenIndex}
-	class={'w-3 h-3 rounded-sm ' +
-		(completed
+	class={'w-3 h-3 rounded-sm shrink-0 ' +
+		(completed[index]
 			? 'bg-green-400'
 			: index === choosenIndex
 				? 'bg-neutral-800 border border-orange-400'

@@ -41,23 +41,23 @@
 	let search: string;
 </script>
 
-<div class="max-w-2xl mx-auto flex flex-col w-full h-full gap-4 p-2">
+<div class="max-w-4xl mx-auto flex flex-col w-full h-full gap-4 p-2">
 	<div class="flex flex-col md:flex-row gap-2 md:gap-0">
 		<textarea
 			placeholder="Describe your habit..."
 			rows="2"
 			bind:value={name}
-			class="flex-1 bg-neutral-800 text-white rounded-l-md rounded-r-md md:rounded-r-none p-2 resize-none border-none outline-none"
+			class="flex-1 bg-neutral-800 text-white rounded-l-sm rounded-r-sm md:rounded-r-none p-2 resize-none border-none outline-none"
 		></textarea>
 		<input
-			class="p-2 w-full md:w-fit rounded-md md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
+			class="p-2 w-full md:w-fit rounded-sm md:rounded-none bg-neutral-800 text-neutral-100 border-none outline-none"
 			type="time"
 			bind:value={date}
 		/>
 		<button
 			disabled={!Boolean(name) || !Boolean(name.replaceAll(' ', ''))}
 			on:click={addHabit}
-			class="p-2 rounded-l-md md:rounded-l-none bg-blue-500 rounded-r-md">Add habit</button
+			class="p-2 rounded-l-sm md:rounded-l-none bg-blue-500 rounded-r-sm">Add habit</button
 		>
 	</div>
 
@@ -66,7 +66,7 @@
 			bind:value={search}
 			placeholder="search habit"
 			type="text"
-			class="p-2 border-none flex-1 outline-none text-white placeholder:text-neutral-900 bg-neutral-700 rounded-md"
+			class="p-2 border-none flex-1 outline-none text-white placeholder:text-neutral-900 bg-neutral-700 rounded-sm"
 		/>
 	</div>
 	<div class="w-full flex flex-col gap-4">
