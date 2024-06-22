@@ -19,8 +19,17 @@
 		return formattedDateString;
 	}
 
-	function updateHabits() {
+	function saveHabits() {
 		localStorage.setItem('habits', JSON.stringify($habits));
+	}
+
+	function updateHabits(habitIndex: number, index: number) {
+		$habits[habitIndex].completed[index] = !$habits[habitIndex].completed[index];
+		if (!$habits[habitIndex].completed[index]) {
+			delete $habits[habitIndex].completed[index];
+		}
+
+		saveHabits();
 	}
 
 	function addHabit() {
@@ -36,7 +45,7 @@
 		};
 		$habits = sortHabitsByStartTime([...$habits, habit]);
 		name = '';
-		updateHabits();
+		saveHabits();
 	}
 
 	onMount(() => {
@@ -76,9 +85,19 @@
 	<div class="w-full flex flex-col gap-4">
 		{#each $habits as habit, habit_index}
 			{#if !Boolean(search)}
-				<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
+				<RenderHabit
+					bind:habit={$habits[habit_index]}
+					on:update={(e) => {
+						updateHabits(habit_index, e.detail);
+					}}
+				/>
 			{:else if habit.name.toLowerCase().includes(search.toLowerCase())}
-				<RenderHabit bind:habit={$habits[habit_index]} on:update={updateHabits} />
+				<RenderHabit
+					bind:habit={$habits[habit_index]}
+					on:update={(e) => {
+						updateHabits(habit_index, e.detail);
+					}}
+				/>
 			{/if}
 		{/each}
 	</div>
