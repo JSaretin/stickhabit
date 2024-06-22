@@ -30,7 +30,7 @@
 			><h2 class="font-medium text-neutral-300 p-4 font-san w-full text-start flex justify-between">
 				{habit.name}
 				<HabitTicker
-					bind:habit
+					bind:completed={habit.completed[choosenIndex]}
 					bind:index={choosenIndex}
 					bind:choosenIndex
 					on:click={() => {
@@ -49,7 +49,12 @@
 	{#if expand}
 		<div class="flex gap-1 flex-wrap p-4 pt-0">
 			{#each Array(365).fill(null) as _, index}
-				<HabitTicker bind:habit {index} bind:choosenIndex on:click={() => sendUpdateAlert(index)} />
+				<HabitTicker
+					{index}
+					bind:completed={habit.completed[index]}
+					bind:choosenIndex
+					on:click={() => sendUpdateAlert(index)}
+				/>
 			{/each}
 		</div>
 	{/if}
