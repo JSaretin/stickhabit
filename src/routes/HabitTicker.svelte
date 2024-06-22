@@ -6,7 +6,7 @@
 
 <button
 	disabled={index !== choosenIndex}
-	class={'w-4 h-4 rounded-sm ' +
+	class={'w-3 h-3 rounded-sm ' +
 		(completed
 			? 'bg-green-400'
 			: index === choosenIndex
