@@ -77,6 +77,7 @@
 					on:update={(e) => {
 						updateHabits(habit_index, e.detail);
 					}}
+					on:updatename={saveHabits}
 				/>
 			{:else if habit.name.toLowerCase().includes(search.toLowerCase())}
 				<RenderHabit
@@ -84,6 +85,7 @@
 					on:update={(e) => {
 						updateHabits(habit_index, e.detail);
 					}}
+					on:updatename={saveHabits}
 				/>
 			{/if}
 		{/each}
