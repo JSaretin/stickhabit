@@ -29,10 +29,10 @@
 		<button on:click={() => (expand = !expand)} class="w-full"
 			><h2 class="font-medium text-neutral-300 p-4 font-san w-full text-start flex justify-between">
 				{habit.name}
-
 				<HabitTicker
 					bind:habit
 					bind:index={choosenIndex}
+					bind:choosenIndex
 					on:click={() => {
 						expand = !expand;
 						sendUpdateAlert(choosenIndex);
