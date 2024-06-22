@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="fixed inset-0 bg-neutral-900 z-[100] bg-opacity-50 flex justify-center align-middle place-items-center"
+	class="fixed p-4 inset-0 bg-neutral-900 z-[100] bg-opacity-50 flex justify-center align-middle place-items-center"
 >
 	<div
 		class="max-w-sm w-full rounded-sm overflow-hidden bg-neutral-900 shadow-sm shadow-orange-500"
