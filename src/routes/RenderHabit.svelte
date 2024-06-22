@@ -4,8 +4,8 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import HabitTicker from './HabitTicker.svelte';
 
-	const emiter = createEventDispatcher();
 	export let habit: Habit;
+	const emiter = createEventDispatcher();
 	let choosenIndex: number;
 
 	function sendUpdateAlert(index: number) {

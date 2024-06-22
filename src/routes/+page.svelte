@@ -10,15 +10,6 @@
 	let name: string = '';
 	let date: string;
 
-	function formatDate(dateString: string) {
-		const date = new Date(dateString);
-		const hours = date.getUTCHours().toString().padStart(2, '0');
-		const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-		const formattedTime = `${hours}:${minutes}:00`;
-		const formattedDateString = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date.getUTCDate().toString().padStart(2, '0')}T${formattedTime}Z`;
-		return formattedDateString;
-	}
-
 	function saveHabits() {
 		localStorage.setItem('habits', JSON.stringify($habits));
 	}
@@ -33,10 +24,6 @@
 	}
 
 	function addHabit() {
-		// if (now > startTime) {
-		// 	alert('future time only');
-		// 	return;
-		// }
 		const habit: Habit = {
 			name,
 			start_time: convertTo24Hour(date),
