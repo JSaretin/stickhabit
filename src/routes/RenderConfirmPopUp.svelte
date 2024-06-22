@@ -18,7 +18,7 @@
 			Have you completed this habit?
 		</h2>
 
-		<div class="my-4 w-full text-center text-neutral-400 text-lg">
+		<div class="my-4 w-full text-center text-neutral-400 text-lg p-2">
 			{habit.name}
 		</div>
 
