@@ -4,6 +4,7 @@
 	import RenderHabit from './RenderHabit.svelte';
 	import type { Habit } from '$lib/structure';
 	import { convertTo24Hour, sortHabitsByStartTime, getStartOfToday } from '$lib';
+	import RenderConfirmPopUp from './RenderConfirmPopUp.svelte';
 
 	const habits: Writable<Habit[]> = writable([]);
 
@@ -39,7 +40,23 @@
 		$habits = JSON.parse(localStorage.getItem('habits') || '[]');
 	});
 	let search: string;
+
+	let popHabit: Habit | undefined;
+	let popHabitIndex: number;
+	let popTaskIndex: number;
 </script>
+
+{#if popHabit !== undefined}
+	<RenderConfirmPopUp
+		habit={popHabit}
+		{popTaskIndex}
+		on:cancle={() => (popHabit = undefined)}
+		on:click={() => {
+			updateHabits(popHabitIndex, popTaskIndex);
+			popHabit = undefined;
+		}}
+	/>
+{/if}
 
 <div class="max-w-4xl mx-auto flex flex-col w-full h-full gap-4 p-2">
 	<div class="flex flex-col md:flex-row gap-2 md:gap-0">
@@ -61,7 +78,7 @@
 		>
 	</div>
 
-	<div class="sticky top-0 flex justify-between gap-2">
+	<div class="sticky z-50 top-0 flex justify-between gap-2">
 		<input
 			bind:value={search}
 			placeholder="search habit"
@@ -75,7 +92,9 @@
 				<RenderHabit
 					bind:habit={$habits[habit_index]}
 					on:update={(e) => {
-						updateHabits(habit_index, e.detail);
+						popHabit = habit;
+						popHabitIndex = habit_index;
+						popTaskIndex = e.detail;
 					}}
 					on:updatename={saveHabits}
 				/>
@@ -83,7 +102,9 @@
 				<RenderHabit
 					bind:habit={$habits[habit_index]}
 					on:update={(e) => {
-						updateHabits(habit_index, e.detail);
+						popHabit = habit;
+						popHabitIndex = habit_index;
+						popTaskIndex = e.detail;
 					}}
 					on:updatename={saveHabits}
 				/>

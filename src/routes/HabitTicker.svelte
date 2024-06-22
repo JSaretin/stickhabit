@@ -6,7 +6,6 @@
 	export let choosenIndex: number;
 	export let start_date: number;
 	export let start_time: string;
-	export let currentMilliseconds: number;
 
 	const execDate = new Date(
 		start_date + millisecondsInAday * index + convertToMilliseconds(start_time)
@@ -15,7 +14,7 @@
 
 <button
 	title={execDate.toString()}
-	disabled={currentMilliseconds < execDate.getTime()}
+	disabled={index !== choosenIndex}
 	class={'w-3 h-3 rounded-sm shrink-0 ' +
 		(completed[index]
 			? 'bg-green-400'

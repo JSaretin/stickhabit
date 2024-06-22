@@ -44,8 +44,8 @@
 						{habit.name}
 						<HabitTicker
 							{...habit}
-							{...{ index: choosenIndex, choosenIndex }}
-							bind:currentMilliseconds
+							bind:index={choosenIndex}
+							bind:choosenIndex
 							on:click={() => {
 								expand = !expand;
 								sendUpdateAlert(choosenIndex);
@@ -101,7 +101,6 @@
 				<HabitTicker
 					{...habit}
 					{...{ index, choosenIndex }}
-					bind:currentMilliseconds
 					on:click={() => sendUpdateAlert(index)}
 				/>
 			{/each}
