@@ -47,7 +47,7 @@
 	</div>
 
 	{#if expand}
-		<div class="flex gap-1 flex-wrap p-4 pt-0">
+		<div class="flex gap-1 flex-wrap p-4 pt-0 justify-between">
 			{#each Array(365).fill(null) as _, index}
 				<HabitTicker
 					{index}
