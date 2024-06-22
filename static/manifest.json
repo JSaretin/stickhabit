@@ -1,6 +1,6 @@
 {
-  "name": "SkickHabit",
-  "short_name": "SkickHabit",
+  "name": "StickHabit",
+  "short_name": "StickHabit",
   "description": "Keep track of daily habit",
   "start_url": "/",
   "display": "standalone",
