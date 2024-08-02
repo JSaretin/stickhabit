@@ -4,7 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Montserrat: ["Montserrat", 'sans-serif']
+        Kodchasan: ["Kodchasan", 'sans-serif']
+      },
+      colors: {
+        "light": "#ffee99"
       }
     }
   },

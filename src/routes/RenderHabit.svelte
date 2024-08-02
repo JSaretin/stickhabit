@@ -5,6 +5,7 @@
 	import Checker from './Checker.svelte';
 
 	export let habit: Habit;
+	export let index: number;
 	const emiter = createEventDispatcher();
 
 	let today = getStartOfToday();
@@ -17,6 +18,10 @@
 </script>
 
 <div class="flex w-full align-middle border-b border-neutral-600 place-items-center">
+	<span
+		class="text-neutral-500 w-[30px] text-sm flex justify-center align-middle place-items-center"
+		>{index}</span
+	>
 	<div
 		class="max-w-md text-neutral-100 text-left font-medium text-sm w-full border-r border-neutral-600 p-1 whitespace-nowrap overflow-x-scroll"
 	>
