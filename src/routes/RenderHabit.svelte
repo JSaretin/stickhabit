@@ -1,43 +1,53 @@
 <script lang="ts">
 	import { getIsToday, getStartOfToday, millisecondsInAday } from '$lib';
 	import type { Habit } from '$lib/structure';
-	import { createEventDispatcher } from 'svelte';
+	import RenderHabits from './RenderHabits.svelte';
+	import Calender from './Calender.svelte';
 	import Checker from './Checker.svelte';
+	import { getContext } from 'svelte';
+	import type { Writable } from 'svelte/store';
+
+	const today: number = getContext('today');
+	const expand: Writable<boolean> = getContext('expand');
+	let expanded = $expand;
 
 	export let habit: Habit;
-	export let index: number;
-	const emiter = createEventDispatcher();
-
-	let today = getStartOfToday();
-
-	function toggleCheck(day: number) {
-		if (!getIsToday(habit.start_date + day * millisecondsInAday)) return;
-		habit.checked[day] = !habit.checked[day];
-		emiter('updatehabit');
-	}
+	export let isTopLevel = true;
 </script>
 
-<div class="flex w-full align-middle border-b border-neutral-600 place-items-center">
-	<span
-		class="text-neutral-500 w-[30px] text-sm flex justify-center align-middle place-items-center"
-		>{index}</span
-	>
+<div
+	class={'flex flex-col w-full place-items-center p-2 rounded-md border border-neutral-700 ' +
+		(isTopLevel ? '  ' : ' mt-2')}
+>
 	<div
-		class="max-w-md text-neutral-100 text-left font-medium text-sm w-full border-r border-neutral-600 p-1 whitespace-nowrap overflow-x-scroll"
+		class="flex justify-between text-neutral-100 text-left font-medium text-sm w-full whitespace-nowrap overflow-x-scroll"
 	>
-		<button on:click>{habit.description}</button>
-	</div>
-	<div class=" flex-1 p-1 flex gap-1 overflow-x-scroll">
-		{#each Array(356) as _, i}
+		<button
+			on:click={() => {
+				expanded = !expanded;
+			}}
+			class="text-base">{habit.description}</button
+		>
+		<div class="">
 			<Checker
-				day={i + 1}
-				{today}
-				exectDate={habit.start_date + i * millisecondsInAday}
-				checked={habit.checked[i]}
-				on:click={() => {
-					toggleCheck(i);
+				day={today}
+				bind:checked={habit.checked[today]}
+				on:toggleCheck={(e) => {
+					if (!e.detail) {
+						habit.habits = habit.habits.map((h) => {
+							h.checked[today] = false;
+							return h;
+						});
+					}
 				}}
 			/>
-		{/each}
+		</div>
 	</div>
+	{#if expanded || $expand}
+		<Calender bind:habit />
+	{/if}
+
+	{#if habit.checked[today] && habit.habits.length > 0}
+		<RenderHabits bind:habits={habit.habits} />
+	{/if}
 </div>

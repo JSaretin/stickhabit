@@ -1,3 +1,4 @@
+import type { Habit } from "./structure";
 
 export const millisecondsInAday = 86400000
 
@@ -15,4 +16,8 @@ export function getIsToday(execttime: number): boolean {
         today.getMonth() === date.getMonth() &&
         today.getDate() === date.getDate()
     );
+}
+
+export function cleanHabits(habits: Habit[]) {
+    return habits.filter((h) => Boolean(h.description))
 }
