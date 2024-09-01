@@ -8,22 +8,34 @@
 	import { supabase } from '$lib/database';
 	import type { User } from '@supabase/supabase-js';
 
-	let loaded = false;
-
 	let today = getStartOfToday();
 	const daysInCurrentMonth: Writable<number> = writable();
 	const secondsOfLastDayOfCurrentMonth: Writable<number> = writable();
 	const expand: Writable<boolean> = writable(false);
 
 	const user = getContext('user') as Writable<User>;
-	const habits = getContext('habits') as Writable<Habit[]>;
+	const habits: Writable<Habit[]> = writable([]);
 
 	setContext('today', today);
 	setContext('expand', expand);
 	setContext('daysInCurrentMonth', daysInCurrentMonth);
 	setContext('secondsOfLastDayOfCurrentMonth', secondsOfLastDayOfCurrentMonth);
 
-	onMount(() => {
+	async function getOrCreateHabit() {
+		if ($user === undefined) return;
+		let query = await supabase.from('habits').select('*').eq('user_id', $user.id);
+		if (!query.error && query.data.length >= 0) {
+			$habits = query.data[0].habits;
+			return;
+		}
+
+		query = await supabase.from('habits').insert({ habits: [], user_id: $user.id }).select('*');
+		if (!query.error) {
+			$habits = query.data[0].habits;
+		}
+	}
+	onMount(async () => {
+		await getOrCreateHabit();
 		const now = new Date();
 		const year = now.getFullYear();
 		const month = now.getMonth();
@@ -42,7 +54,7 @@
 			.from('habits')
 			.update({ habits: cleanHabits($habits) })
 			.eq('user_id', $user.id);
-		console.log(req);
+		// console.log(req);
 	}
 </script>
 

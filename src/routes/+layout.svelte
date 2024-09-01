@@ -8,33 +8,15 @@
 	import type { Habit } from '$lib/structure';
 
 	const user = writable() as Writable<User | undefined>;
-	const habits: Writable<Habit[]> = writable([]);
 
 	setContext('user', user);
-	setContext('habits', habits);
 
 	let loading = true;
-
-	async function getOrCreateHabit() {
-		if ($user === undefined) return;
-		let query = await supabase.from('habits').select('*').eq('user_id', $user.id);
-		if (query.error || query.data.length == 0) {
-			const query = await supabase
-				.from('habits')
-				.insert({ habits: [], user_id: $user.id })
-				.select('*');
-			if (!query.error) {
-				$habits = query.data[0].habits;
-			}
-		} else {
-			$habits = query.data[0].habits;
-		}
-	}
+	let checkedUser = false;
 
 	supabase.auth.onAuthStateChange(async (e, session) => {
 		if (e === 'SIGNED_IN') {
 			$user = session?.user;
-			await getOrCreateHabit();
 			return;
 		}
 		if (e === 'SIGNED_OUT') {
@@ -44,28 +26,29 @@
 	});
 
 	onMount(async () => {
-		if ('serviceWorker' in navigator) {
-			console.log('Service Worker is supported, registering service worker');
-			navigator.serviceWorker.register('/service-worker.js');
-		}
+		// if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
 
 		const session = await supabase.auth.getSession();
 		if (!session.error && session.data.session?.user) {
-			$user = session.data.session.user;
+			await supabase.auth.refreshSession(session.data.session);
 		}
-		await getOrCreateHabit();
+		checkedUser = true;
 		loading = false;
 	});
 </script>
 
-{#if $user === undefined}
-	{#if loading}
-		loading..
-	{:else}
-		<Auth />
-	{/if}
-{:else}
+{#if !loading && $user === undefined}
+	<Auth />
+{:else if $user !== undefined}
 	<slot />
+{:else}
+	<div class="w-full h-screen flex justify-center align-middle place-items-center">
+		<div class="flex justify-center align-middle place-items-center">
+			<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+			<h2 class="text-3xl font-medium border-y p-4 text-white border-white">loading habits</h2>
+			<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+		</div>
+	</div>
 {/if}
 
 <style lang="postcss">
