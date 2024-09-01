@@ -36,9 +36,10 @@
 			console.log('Service Worker is supported, registering service worker');
 			navigator.serviceWorker.register('/service-worker.js');
 		}
-		supabase.auth.onAuthStateChange((e, session) => {
+		supabase.auth.onAuthStateChange(async (e, session) => {
 			if (e === 'SIGNED_IN') {
 				$user = session?.user;
+				await getOrCreateHabit();
 				return;
 			}
 			if (e === 'SIGNED_OUT') {
