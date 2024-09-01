@@ -1,5 +1,13 @@
 <script>
+	import { onMount } from 'svelte';
 	import '../app.css';
+
+	onMount(() => {
+		if ('serviceWorker' in navigator) {
+			console.log('Service Worker is supported, registering service worker');
+			navigator.serviceWorker.register('/service-worker.js');
+		}
+	});
 </script>
 
 <slot />
