@@ -31,22 +31,23 @@
 		}
 	}
 
+	supabase.auth.onAuthStateChange(async (e, session) => {
+		if (e === 'SIGNED_IN') {
+			$user = session?.user;
+			await getOrCreateHabit();
+			return;
+		}
+		if (e === 'SIGNED_OUT') {
+			$user = undefined;
+			return;
+		}
+	});
+
 	onMount(async () => {
 		if ('serviceWorker' in navigator) {
 			console.log('Service Worker is supported, registering service worker');
 			navigator.serviceWorker.register('/service-worker.js');
 		}
-		supabase.auth.onAuthStateChange(async (e, session) => {
-			if (e === 'SIGNED_IN') {
-				$user = session?.user;
-				await getOrCreateHabit();
-				return;
-			}
-			if (e === 'SIGNED_OUT') {
-				$user = undefined;
-				return;
-			}
-		});
 
 		const session = await supabase.auth.getSession();
 		if (!session.error && session.data.session?.user) {
