@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="flex flex-col max-w-lg mx-auto w-full gap-4 text-lg">
+<div class="flex flex-col max-w-lg mx-auto w-full gap-4 text-lg p-6">
 	<label class="flex flex-col gap-2">
 		Email
 		<input bind:value={email} type="email" class="p-4 rounded-md" />
