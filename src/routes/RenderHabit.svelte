@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { getIsToday, getStartOfToday, millisecondsInAday } from '$lib';
+	// import { getIsToday, getStartOfToday, millisecondsInAday } from '$lib';
 	import type { Habit } from '$lib/structure';
 	import RenderHabits from './RenderHabits.svelte';
 	import Calender from './Calender.svelte';
 	import Checker from './Checker.svelte';
-	import { getContext } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import type { Writable } from 'svelte/store';
 
 	const today: number = getContext('today');
 	const expand: Writable<boolean> = getContext('expand');
 	let expanded = $expand;
+
+	const dispatcher = createEventDispatcher();
 
 	export let habit: Habit;
 	export let isTopLevel = true;
@@ -30,22 +32,23 @@
 			<Checker
 				day={today}
 				bind:checked={habit.checked[today]}
-				on:toggleCheck={(e) => {
+				on:togglecheck={(e) => {
 					if (!e.detail) {
 						habit.habits = habit.habits.map((h) => {
-							h.checked[today] = false;
+							h.checked[today] = e.detail;
 							return h;
 						});
 					}
+					dispatcher('togglecheck', e.detail);
 				}}
 			/>
 		</div>
 	</div>
 	{#if expanded || $expand}
-		<Calender bind:habit />
+		<Calender bind:habit on:togglecheck />
 	{/if}
 
-	{#if habit.checked[today] && habit.habits.length > 0}
-		<RenderHabits bind:habits={habit.habits} />
+	{#if (habit.checked[today] || $expand) && habit.habits.length > 0}
+		<RenderHabits bind:habits={habit.habits} on:togglecheck />
 	{/if}
 </div>

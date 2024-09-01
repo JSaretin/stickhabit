@@ -11,7 +11,7 @@
 	const dispatcher = createEventDispatcher();
 	function toggleCheck() {
 		checked = !checked;
-		dispatcher('toggleCheck', checked);
+		dispatcher('togglecheck', checked);
 	}
 </script>
 
