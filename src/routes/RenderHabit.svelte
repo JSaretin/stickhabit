@@ -19,14 +19,12 @@
 	class={'flex flex-col w-full place-items-center p-2 rounded-md border border-neutral-700 ' +
 		(isTopLevel ? '  ' : ' mt-2')}
 >
-	<div
-		class="flex justify-between text-neutral-100 text-left font-medium text-sm w-full whitespace-nowrap overflow-x-scroll"
-	>
+	<div class="flex justify-between text-neutral-100 font-medium text-sm w-full">
 		<button
 			on:click={() => {
 				expanded = !expanded;
 			}}
-			class="text-base">{habit.description}</button
+			class="text-base text-left">{habit.description}</button
 		>
 		<div class="">
 			<Checker
