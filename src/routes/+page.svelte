@@ -39,14 +39,16 @@
 	let showCreateHabit = false;
 </script>
 
-<div class="flex max-w-xl rounded-md w-full mx-auto justify-between bg-neutral-700 p-2">
-	<div class=""></div>
-	<button
-		on:click={() => {
-			showCreateHabit = true;
-		}}
-		class="p-2 rounded-md bg-blue-500 text-xs font-medium">create habit</button
-	>
+<div class="sticky top-0 left-0 w-full">
+	<div class="flex max-w-xl lg:rounded-md w-full mx-auto justify-between bg-neutral-700 p-2">
+		<div class=""></div>
+		<button
+			on:click={() => {
+				showCreateHabit = true;
+			}}
+			class="p-2 rounded-md bg-blue-500 text-xs font-medium">create habit</button
+		>
+	</div>
 </div>
 
 {#if showCreateHabit}
@@ -69,7 +71,7 @@
 	</div>
 {/if}
 
-<div class="h-screen w-full max-w-xl mx-auto flex flex-col">
+<div class="h-screen w-full max-w-xl mx-auto flex flex-col p-2">
 	<div class="p-2 flex justify-between bg-neutral-700 mt-4 rounded-md">
 		<h2 class="uppercase">Habits</h2>
 		<div class="flex">
