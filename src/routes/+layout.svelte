@@ -58,10 +58,12 @@
 	});
 </script>
 
-{#if loading}
-	loading..
-{:else if $user === undefined}
-	<Auth />
+{#if $user === undefined}
+	{#if loading}
+		loading..
+	{:else}
+		<Auth />
+	{/if}
 {:else}
 	<slot />
 {/if}
