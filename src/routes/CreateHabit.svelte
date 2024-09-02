@@ -18,8 +18,7 @@
 	const dispatcher = createEventDispatcher();
 
 	function addNewHabit() {
-		const newHabit = generateNewHabit();
-		newHabit.id = `${habit.id}-${newHabit.id}`;
+		const newHabit = { ...generateNewHabit(), id: `${habit.id}-${habit.habits.length}` };
 		habit.habits = [...habit.habits, newHabit];
 	}
 	function generateRandomHexColor() {
