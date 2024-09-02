@@ -20,6 +20,6 @@
 
 <div class="mt-2 flex flex-wrap gap-1 w-full">
 	{#each daysOfTheMonth as day, _}
-		<Checker on:togglecheck {day} bind:checked={habit.checked[day]} />
+		<Checker on:togglecheck {day} bind:checked={habit.checked[day]} startDay={habit.start_date} />
 	{/each}
 </div>

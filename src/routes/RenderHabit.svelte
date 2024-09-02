@@ -15,6 +15,16 @@
 
 	export let habit: Habit;
 	export let isTopLevel = true;
+
+	function toggleCheck(e: { detail: boolean }) {
+		if (!e.detail) {
+			habit.habits = habit.habits.map((h) => {
+				h.checked[today] = e.detail;
+				return h;
+			});
+		}
+		dispatcher('togglecheck', e.detail);
+	}
 </script>
 
 <div
@@ -32,15 +42,8 @@
 			<Checker
 				day={today}
 				bind:checked={habit.checked[today]}
-				on:togglecheck={(e) => {
-					if (!e.detail) {
-						habit.habits = habit.habits.map((h) => {
-							h.checked[today] = e.detail;
-							return h;
-						});
-					}
-					dispatcher('togglecheck', e.detail);
-				}}
+				startDay={today}
+				on:togglecheck={toggleCheck}
 			/>
 		</div>
 	</div>

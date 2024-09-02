@@ -26,7 +26,7 @@
 	});
 
 	onMount(async () => {
-		// if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+		if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
 
 		const session = await supabase.auth.getSession();
 		if (!session.error && session.data.session?.user) {

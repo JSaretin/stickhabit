@@ -7,6 +7,7 @@
 
 	export let day: number;
 	export let checked: boolean;
+	export let startDay: number = 0;
 
 	const dispatcher = createEventDispatcher();
 	function toggleCheck() {
@@ -16,9 +17,11 @@
 </script>
 
 <button
+	disabled={day != today || day > tomorrowStart}
 	title={new Date(day).toLocaleDateString()}
 	on:click={toggleCheck}
-	class={'w-5 aspect-square text-xs font-medium font-mono rounded-sm shrink-0  ' +
+	class={(day >= startDay ? '' : 'hidden') +
+		' w-5 aspect-square text-xs font-medium font-mono rounded-sm shrink-0  ' +
 		(checked
 			? 'bg-green-400 text-black'
 			: today > day
